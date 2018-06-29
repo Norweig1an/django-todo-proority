@@ -10,4 +10,5 @@
 
 待办事项可以设置优先级
 
-![GIF](https://github.com/Norweig1an/django-todo-proority/doc/功能截图.gif)
+![GIF](https://github.com/Norweig1an/django-todo-proority/blob/master/doc/%E5%8A%9F%E8%83%BD%E6%88%AA%E5%9B%BE.gif)
+django-todo-proority/doc/功能截图.gif
