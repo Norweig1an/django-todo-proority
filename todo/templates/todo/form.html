@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %} 
+  <div class="box post">
+    <h2>新增/修改</h2>
+    <form action="" method="post">
+      <div class="col-sm-10">
+          <label class="checkbox-inline">
+            <input type="radio" name="priority" value="1" {% if not todo.priority or todo.priority == '1' %} checked {% endif %}><span class="btn btn-danger btn-xs">重要</span>
+          </label>
+          <label class="checkbox-inline">
+            <input type="radio" name="priority" value="2" {% if todo.priority == '2' %} checked {% endif %}><span class="btn btn-warning btn-xs">警告</span>
+          </label>
+          <label class="checkbox-inline">
+            <input type="radio" name="priority" value="3" {% if todo.priority == '3' %} checked {% endif %}><span class="btn btn-success btn-xs">成功</span>
+          </label>
+      </div>      
+      {% csrf_token %}
+      {{form.as_p}}
+      <p>
+        <input type="submit" class="submit" value="提交" />
+      </p>
+    </form>
+  </div>
+{% endblock %}

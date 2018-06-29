@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %} 
+  <div class="box">
+
+    <div class="box todos">
+
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <h2 class="box">待办事项</h2>
+      <ul>
+        {% for todo in todos %}
+          <li {% if todo.finished == 1%} class="finished"{% endif %}>
+            {% if todo.finished == 0 %}
+              {{todo.title}}
+              <a href="{% url 'todo_finish' todo.id %}?status=yes">完成</a>,
+            {% endif %}
+            {% if todo.finished == 1 %}
+              <del>{{todo.title}}</del>
+              <a href="{% url 'todo_finish' todo.id %}?status=no">恢复</a>,
+            {% endif %}      
+            <a href="{% url 'todo_edit' todo.id %}">修改</a>,
+            <a href="{% url 'todo_delete' todo.id %}" onclick="return confirm('It can not be restore,are you sure to continue？')">删除</a>
+          </li>
+          {% endfor %}
+          {% for todo in todos %}
+          {% if todo.priority == 1 %}
+            {{todo.title}}
+            <a href="{% url 'todo_edit' todo.id %}">priority</a>,
+          {% endif %}
+          {% if todo.priority == 2 %}
+            {{todo.title}}
+            <a href="{% url 'todo_edit' todo.id %}">priority</a>,
+          {% endif %}
+          {% if todo.priority == 3 %}
+            {{todo.title}}
+            <a href="{% url 'todo_edit' todo.id %}">priority</a>,
+          {% endif %}  
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="box post">
+      <h2>新增</h2>
+      <form action="{% url 'todo_new' %}" method="post" id="post_new">
+        <fieldset>
+                <label class="radio inline" for="priority">
+                    <span class="label label-info">Priority  </span>
+                </label>
+                <label class="radio inline" for="priority">
+                    <input type="radio" name="priority" value=1/>
+                    <span class="label label-important">Emergency  </span>
+                </label>          
+                <label class="radio inline" for="priority">
+                    <input type="radio" name="priority" value=2/>
+                    <span class="label label-general">General  </span>
+                </label>          
+                <label class="radio inline" for="priority">
+                    <input type="radio" name="priority" value=3/>
+                    <span class="label label-ample">Ample  </span>
+                </label>
+        </fieldset>
+        {% csrf_token %}
+        {{form}}
+        <p><input type="submit" class="submit" value="添加" /></p>
+      </form>
+    </div>
+      <script src="/static/js/bootstrap.min.js"></script>
+  </div>
+{% endblock %}
